@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ROS 2: Build",
+      "detail": "Build the workspace using colcon",
+      "type": "shell",
+      "command": "colcon build --symlink-install && source install/setup.bash",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "ROS 2: Test",
+      "detail": "Run system tests using colcon",
+      "type": "shell",
+      "command": "colcon test && colcon test-result --all",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "ROS 2: Create ament_cmake package",
+      "detail": "Create a new ROS 2 ament_cmake package",
+      "type": "shell",
+      "command": "ros2 pkg create --destination-directory src --build-type ament_cmake ${input:packageName}",
+      "problemMatcher": []
+    },
+    {
+      "label": "ROS 2: Create ament_python package",
+      "detail": "Create a new ROS 2 ament_python package",
+      "type": "shell",
+      "command": "ros2 pkg create --destination-directory src --build-type ament_python ${input:packageName}",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "packageName",
+      "type": "promptString",
+      "description": "Package name"
+    }
+  ]
+}
