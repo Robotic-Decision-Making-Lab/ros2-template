@@ -87,8 +87,8 @@ ENV USER_WORKSPACE=/home/$USERNAME/ws_ros
 WORKDIR $USER_WORKSPACE
 
 # Install tools needed for Gazebo installation
-RUN sudo apt-get update \
-    && sudo apt-get -y upgrade \
+RUN sudo apt-get -q update \
+    && sudo apt-get -q -y upgrade \
     && sudo apt-get install -y \
     lsb-release \
     wget \
@@ -104,8 +104,9 @@ ENV GAZEBO_VERSION=harmonic
 
 RUN sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null \
-    && sudo apt-get update \
-    && sudo apt-get install \
+    && apt-get -q update \
+    && apt-get -q -y upgrade \
+    && sudo apt-get install -y \
     gz-$GAZEBO_VERSION \
     ros-$ROS_DISTRO-ros-gz$GAZEBO_VERSION \
     && sudo apt-get autoremove -y \
