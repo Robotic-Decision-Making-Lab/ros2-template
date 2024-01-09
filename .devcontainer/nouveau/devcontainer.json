@@ -64,7 +64,8 @@
           "editor.rulers": [90],
           "editor.formatOnSave": true,
           "editor.codeActionsOnSave": {
-            "source.fixAll": true
+            "source.fixAll": true,
+            "source.organizeImports": true
           },
           "editor.defaultFormatter": "ms-python.black-formatter"
         },
