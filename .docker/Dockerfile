@@ -59,8 +59,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV USER_WORKSPACE=/home/$USERNAME/ws_ros
 WORKDIR $USER_WORKSPACE
 
+COPY --chown=$USER_UID:$USER_GID . src/$PROJECT_NAME
+
 # Uncomment to download and install external repos used by the project
-# COPY --chown=$USER_UID:$USER_GID . src/$PROJECT_NAME
 # RUN vcs import src < src/$PROJECT_NAME/ros2.repos
 
 # Install all ROS dependencies
