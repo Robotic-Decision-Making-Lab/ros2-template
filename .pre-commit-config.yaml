@@ -16,25 +16,15 @@ repos:
       - id: codespell
         args: ["--write-changes"]
 
-  - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v15.0.6
+  - repo: local
     hooks:
       - id: clang-format
-  
-  - repo: local
-    hooks:
-      - id: ament_lint_cmake
-        name: ament_lint_cmake
-        entry: ament_lint_cmake
+        name: clang-format
+        description: Format files with ClangFormat.
+        entry: clang-format-14
         language: system
-        files: CMakeLists\.txt$
-
-  - repo: local
-    hooks:
-      - id: ament_copyright
-        name: ament_copyright
-        entry: ament_copyright
-        language: system
+        files: \.(c|cc|cxx|cpp|frag|glsl|h|hpp|hxx|ih|ispc|ipp|java|js|m|proto|vert)$
+        args: ['-fallback-style=Google', '-i']
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
