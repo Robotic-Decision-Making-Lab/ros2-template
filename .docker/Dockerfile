@@ -16,7 +16,7 @@ RUN apt-get -q update \
     git \
     sudo \
     clang \
-    clang-format-18 \
+    clang-format-16 \
     clang-tidy \
     clang-tools \
     python3-pip \

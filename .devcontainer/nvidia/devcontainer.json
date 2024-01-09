@@ -57,7 +57,7 @@
         "C_Cpp.clang_format_fallbackStyle": "Google",
         "C_Cpp.codeAnalysis.clangTidy.enabled": true,
         "C_Cpp.codeAnalysis.clangTidy.runAutomatically": true,
-        "clang-format.executable": "/usr/bin/clang-format-18",
+        "clang-format.executable": "/usr/bin/clang-format-16",
         "[cpp]": {
           "editor.rulers": [100],
           "editor.tabSize": 2,
