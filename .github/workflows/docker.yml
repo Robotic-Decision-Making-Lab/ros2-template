@@ -38,14 +38,14 @@ jobs:
       - name: Extract Docker metadata
         if: env.PUSH == 'true'
         id: meta
-        uses: docker/metadata-action@v5.0.0
+        uses: docker/metadata-action@v5.5.0
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=${{ matrix.ROS_DISTRO }}-${{ github.job }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5.0.0
+        uses: docker/build-push-action@v5.1.0
         with:
           context: .
           file: .docker/Dockerfile
@@ -79,7 +79,7 @@ jobs:
       - name: Extract Docker metadata
         if: env.PUSH == 'true'
         id: meta
-        uses: docker/metadata-action@v5.0.0
+        uses: docker/metadata-action@v5.5.0
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
@@ -121,14 +121,14 @@ jobs:
       - name: Extract Docker metadata
         if: env.PUSH == 'true'
         id: meta
-        uses: docker/metadata-action@v5.0.0
+        uses: docker/metadata-action@v5.5.0
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=${{ matrix.ROS_DISTRO }}-${{ github.job }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5.0.0
+        uses: docker/build-push-action@v5.1.0
         with:
           context: .
           file: .docker/Dockerfile
@@ -162,14 +162,14 @@ jobs:
       - name: Extract Docker metadata
         if: env.PUSH == 'true'
         id: meta
-        uses: docker/metadata-action@v5.0.0
+        uses: docker/metadata-action@v5.5.0
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=${{ matrix.ROS_DISTRO }}-${{ github.job }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5.0.0
+        uses: docker/build-push-action@v5.1.0
         with:
           context: .
           file: .docker/Dockerfile
