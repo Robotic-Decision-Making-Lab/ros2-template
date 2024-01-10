@@ -2,7 +2,7 @@
   "name": "ROS 2 Dev Container",
   "dockerFile": "Dockerfile",
   "context": "../..",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/home/ros/ws_ros/src/blue,type=bind",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/ros/ws_ros/src/ros2-template,type=bind",
   "workspaceFolder": "/home/ros/ws_ros/src/ros2-template",
   "remoteUser": "ros",
   "runArgs": [
