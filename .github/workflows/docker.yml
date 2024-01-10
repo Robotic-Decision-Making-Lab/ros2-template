@@ -54,6 +54,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ env.PUSH }}
+
   robot:
     strategy:
       fail-fast: false
@@ -85,7 +86,7 @@ jobs:
             type=raw,value=${{ matrix.ROS_DISTRO }}-${{ github.job }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5.0.0
+        uses: docker/build-push-action@v5.1.0
         with:
           context: .
           file: .docker/Dockerfile
@@ -94,6 +95,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ env.PUSH }}
+          platforms: linux/amd64,linux/arm64
+
   desktop:
     strategy:
       fail-fast: false
@@ -134,6 +137,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           push: ${{ env.PUSH }}
+
   desktop-nvidia:
     strategy:
       fail-fast: false
