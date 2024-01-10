@@ -2,11 +2,11 @@
 
 Setting up a new ROS 2 project often requires a significant amount of
 preparation and boilerplate configuration, costing you valuable robot
-development time 🤖. Recognizing this, we have put together [ros2-template](https://github.com/Robotic-Decision-Making-Lab/ros2-template):
-a template repository configured with a ROS 2 development environment,
-continuous integration, and more. This project is the result of much
-trial and error across many projects, and we hope that this helps you save some
-effort in setting up your own projects.
+development time 🤖. Recognizing this, we have put together this template
+repository configured with a ROS 2 development environment, continuous
+integration, and more. This project is the result of much trial and error
+across many projects, and we hope that this helps you save some effort in
+setting up your own projects.
 
 ## Features
 
