@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(template_pkg)
+project(example_pkg)
 
 set(THIS_PACKAGE_INCLUDE_DEPENDS
   ament_cmake

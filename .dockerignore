@@ -5,4 +5,4 @@
 !requirements-dev.txt
 
 # Allow your ROS 2 packages here, e.g.:
-!template_pkg
+!example_pkg
