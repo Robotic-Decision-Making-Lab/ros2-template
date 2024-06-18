@@ -16,9 +16,6 @@ RUN apt-get -q update \
     git \
     sudo \
     clang \
-    clang-format-14 \
-    clang-tidy \
-    clang-tools \
     python3-pip \
     python3-dev \
     apt-utils \
@@ -39,8 +36,10 @@ RUN apt-get -q update \
 
 FROM ci as robot
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Configure a new non-root user
-ARG USERNAME=ros
+ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -55,7 +54,6 @@ RUN groupadd --gid $USER_GID $USERNAME \
 USER $USERNAME
 ENV USER=$USERNAME
 
-ENV DEBIAN_FRONTEND=noninteractive
 ENV USER_WORKSPACE=/home/$USERNAME/ws_ros
 WORKDIR $USER_WORKSPACE
 
