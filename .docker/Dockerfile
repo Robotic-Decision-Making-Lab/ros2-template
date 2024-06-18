@@ -36,11 +36,16 @@ RUN apt-get -q update \
 
 FROM ci as robot
 
-# Switch to the ubuntu non-root user
+# Configure the ubuntu non-root user
 ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
+RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME \
+    && usermod -a -G dialout $USERNAME
+
+# Switch to the ubuntu non-root user
 USER $USERNAME
 ENV USER=$USERNAME
 
