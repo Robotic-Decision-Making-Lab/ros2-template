@@ -17,7 +17,7 @@ RUN sudo apt-get -q update \
 
 # Install debugging/linting Python packages
 COPY --chown=$USER_UID:$USER_GID requirements-dev.txt .
-RUN $VIRTUAL_ENV/bin/pip install -r requirements-dev.txt \
+RUN pip install -r requirements-dev.txt \
     && rm -rf requirements-dev.txt
 
 # Install debugging/linting C++ packages

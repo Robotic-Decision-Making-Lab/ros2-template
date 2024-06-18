@@ -37,6 +37,8 @@ RUN apt-get -q update \
 
 FROM ci as robot
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Configure the ubuntu non-root user
 ARG USERNAME=ubuntu
 ARG USER_UID=1000
@@ -50,7 +52,6 @@ RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
 USER $USERNAME
 ENV USER=$USERNAME
 
-ENV DEBIAN_FRONTEND=noninteractive
 ENV USER_WORKSPACE=/home/$USERNAME/ws_ros
 WORKDIR $USER_WORKSPACE
 
@@ -61,6 +62,7 @@ ENV VIRTUAL_ENV=$USER_WORKSPACE/.venv/$PROJECT_NAME
 RUN python3 -m venv --system-site-packages $VIRTUAL_ENV \
     && echo "source ${VIRTUAL_ENV}/bin/activate" >> /home/$USERNAME/.bashrc \
     && touch .venv/COLCON_IGNORE
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Uncomment to download and install external repos used by the project
 # RUN vcs import src < src/$PROJECT_NAME/ros2.repos
