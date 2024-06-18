@@ -66,7 +66,7 @@ COPY --chown=$USER_UID:$USER_GID . src/$PROJECT_NAME
 
 # Create a new virtual environment for Python
 ENV VIRTUAL_ENV=$USER_WORKSPACE/.venv/$PROJECT_NAME
-RUN python3 -m venv $VIRTUAL_ENV \
+RUN python3 -m venv --system-site-packages $VIRTUAL_ENV \
     && echo "source ${VIRTUAL_ENV}/bin/activate" >> /home/$USERNAME/.bashrc \
     && touch .venv/COLCON_IGNORE
 
