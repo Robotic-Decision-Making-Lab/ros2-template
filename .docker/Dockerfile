@@ -40,7 +40,7 @@ RUN apt-get -q update \
 FROM ci as robot
 
 # Configure a new non-root user
-ARG USERNAME=ros
+ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
