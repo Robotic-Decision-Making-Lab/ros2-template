@@ -1,0 +1,4 @@
+[codespell]
+# Uncomment/populate the following so that codespell ignores the specified words
+# skip = *.json
+# ignore-words-list = example,words,to,ignore
