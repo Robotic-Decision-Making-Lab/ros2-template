@@ -1,4 +1,4 @@
-ARG ROS_DISTRO=iron
+ARG ROS_DISTRO=jazzy
 FROM ros:$ROS_DISTRO-ros-base as ci
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -21,6 +21,7 @@ RUN apt-get -q update \
     clang-tools \
     python3-pip \
     python3-dev \
+    python3-virtualenv \
     apt-utils \
     software-properties-common \
     && apt-get autoremove -y \
@@ -60,6 +61,11 @@ ENV USER_WORKSPACE=/home/$USERNAME/ws_ros
 WORKDIR $USER_WORKSPACE
 
 COPY --chown=$USER_UID:$USER_GID . src/$PROJECT_NAME
+
+# Create a new virtual environment for Python
+RUN virtualenv .venv \
+    && . .venv/bin/activate \
+    && touch .venv/COLCON_IGNORE
 
 # Uncomment to download and install external repos used by the project
 # RUN vcs import src < src/$PROJECT_NAME/ros2.repos
