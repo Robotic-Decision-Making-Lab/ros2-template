@@ -12,14 +12,14 @@ COPY --chown=$USER_UID:$USER_GID . src/$PROJECT_NAME
 RUN sudo apt-get -q update \
     && sudo apt-get -q -y upgrade \
     && rosdep update \
-    && rosdep install -y --from-paths . --ignore-src -r --rosdistro ${ROS_DISTRO} \
+    && rosdep install -y --from-paths . --ignore-src -r --as-root=pip:false --rosdistro ${ROS_DISTRO} \
     && sudo apt-get autoremove -y \
     && sudo apt-get clean -y \
     && sudo rm -rf /var/lib/apt/lists/*
 
 # Install debugging/linting Python packages
 COPY --chown=$USER_UID:$USER_GID requirements-dev.txt .
-RUN python3 -m pip install -r requirements-dev.txt \
+RUN $VIRTUAL_ENV/bin/pip install -r requirements-dev.txt \
     && rm -rf requirements-dev.txt
 
 # Disable the setuputils installation warning

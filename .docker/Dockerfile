@@ -42,7 +42,7 @@ FROM ci as robot
 
 # Configure a new non-root user
 ARG USERNAME=ros
-ARG USER_UID=1000
+ARG USER_UID=1001
 ARG USER_GID=$USER_UID
 
 RUN groups
@@ -65,8 +65,9 @@ WORKDIR $USER_WORKSPACE
 COPY --chown=$USER_UID:$USER_GID . src/$PROJECT_NAME
 
 # Create a new virtual environment for Python
-RUN virtualenv .venv \
-    && . .venv/bin/activate \
+ENV VIRTUAL_ENV=$USER_WORKSPACE/.venv/$PROJECT_NAME
+RUN python3 -m venv $VIRTUAL_ENV \
+    && echo "source ${VIRTUAL_ENV}/bin/activate" >> /home/$USERNAME/.bashrc \
     && touch .venv/COLCON_IGNORE
 
 # Uncomment to download and install external repos used by the project
@@ -77,7 +78,7 @@ WORKDIR $USER_WORKSPACE
 RUN sudo apt-get -q update \
     && sudo apt-get -q -y upgrade \
     && rosdep update \
-    && rosdep install -y --from-paths src --ignore-src -r --rosdistro ${ROS_DISTRO} \
+    && rosdep install -y --from-paths src --ignore-src --as-root=pip:false --rosdistro ${ROS_DISTRO} \
     && sudo apt-get autoremove -y \
     && sudo apt-get clean -y \
     && sudo rm -rf /var/lib/apt/lists/*
