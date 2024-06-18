@@ -1,4 +1,4 @@
-ARG ROS_DISTRO=iron
+ARG ROS_DISTRO=jazzy
 FROM ros:$ROS_DISTRO-ros-base as ci
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -16,11 +16,9 @@ RUN apt-get -q update \
     git \
     sudo \
     clang \
-    clang-format-14 \
-    clang-tidy \
-    clang-tools \
     python3-pip \
     python3-dev \
+    python3-venv \
     apt-utils \
     software-properties-common \
     && apt-get autoremove -y \
@@ -39,27 +37,32 @@ RUN apt-get -q update \
 
 FROM ci as robot
 
-# Configure a new non-root user
-ARG USERNAME=ros
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Configure the ubuntu non-root user
+ARG USERNAME=ubuntu
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-RUN groupadd --gid $USER_GID $USERNAME \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \
-    && usermod -a -G dialout $USERNAME \
-    && echo "source /usr/share/bash-completion/completions/git" >> /home/$USERNAME/.bashrc
+    && usermod -a -G dialout $USERNAME
 
-# Switch to the non-root user
+# Switch to the ubuntu non-root user
 USER $USERNAME
 ENV USER=$USERNAME
 
-ENV DEBIAN_FRONTEND=noninteractive
 ENV USER_WORKSPACE=/home/$USERNAME/ws_ros
 WORKDIR $USER_WORKSPACE
 
 COPY --chown=$USER_UID:$USER_GID . src/$PROJECT_NAME
+
+# Create a new virtual environment for Python
+ENV VIRTUAL_ENV=$USER_WORKSPACE/.venv/$PROJECT_NAME
+RUN python3 -m venv --system-site-packages $VIRTUAL_ENV \
+    && echo "source ${VIRTUAL_ENV}/bin/activate" >> /home/$USERNAME/.bashrc \
+    && touch .venv/COLCON_IGNORE
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Uncomment to download and install external repos used by the project
 # RUN vcs import src < src/$PROJECT_NAME/ros2.repos
@@ -69,7 +72,7 @@ WORKDIR $USER_WORKSPACE
 RUN sudo apt-get -q update \
     && sudo apt-get -q -y upgrade \
     && rosdep update \
-    && rosdep install -y --from-paths src --ignore-src -r --rosdistro ${ROS_DISTRO} \
+    && rosdep install -y --from-paths src --ignore-src --rosdistro ${ROS_DISTRO} \
     && sudo apt-get autoremove -y \
     && sudo apt-get clean -y \
     && sudo rm -rf /var/lib/apt/lists/*
@@ -85,29 +88,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV USER_WORKSPACE=/home/$USERNAME/ws_ros
 WORKDIR $USER_WORKSPACE
 
-# Install tools needed for Gazebo installation
+# Install Gazebo
 RUN sudo apt-get -q update \
     && sudo apt-get -q -y upgrade \
     && sudo apt-get install -y \
-    lsb-release \
-    wget \
-    gnupg \
-    && sudo apt-get autoremove -y \
-    && sudo apt-get clean -y \
-    && sudo rm -rf /var/lib/apt/lists/*
-
-# Set to the desired version of Gazebo
-# Refer to the official documentation for the recommended pairings:
-# https://gazebosim.org/docs/harmonic/ros_installation
-ENV GAZEBO_VERSION=harmonic
-
-RUN sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null \
-    && sudo apt-get -q update \
-    && sudo apt-get -q -y upgrade \
-    && sudo apt-get install -y \
-    gz-$GAZEBO_VERSION \
-    ros-$ROS_DISTRO-ros-gz$GAZEBO_VERSION \
+    ros-$ROS_DISTRO-ros-gz \
     && sudo apt-get autoremove -y \
     && sudo apt-get clean -y \
     && sudo rm -rf /var/lib/apt/lists/*
