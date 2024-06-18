@@ -24,7 +24,6 @@ RUN $VIRTUAL_ENV/bin/pip install -r requirements-dev.txt \
 RUN sudo apt-get -q update \
     && sudo apt-get -q -y upgrade \
     && sudo apt-get install -y \
-    clang \
     clang-format-18 \
     clang-tidy \
     clang-tools \

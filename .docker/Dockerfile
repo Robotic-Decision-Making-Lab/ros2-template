@@ -15,6 +15,7 @@ RUN apt-get -q update \
     && apt-get -q install --no-install-recommends -y \
     git \
     sudo \
+    clang \
     python3-pip \
     python3-dev \
     python3-venv \
