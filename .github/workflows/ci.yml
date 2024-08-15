@@ -19,13 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         env:
-<<<<<<< HEAD
           - IMAGE: iron-ci
             ROS_DISTRO: iron
-=======
-          - IMAGE: rolling-ci
-            ROS_DISTRO: rolling
->>>>>>> d48bcbd (Update pre-commit configuration (#28))
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
