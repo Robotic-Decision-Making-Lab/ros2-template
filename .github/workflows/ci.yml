@@ -19,8 +19,13 @@ jobs:
       fail-fast: false
       matrix:
         env:
+<<<<<<< HEAD
           - IMAGE: humble-ci
             ROS_DISTRO: humble
+=======
+          - IMAGE: rolling-ci
+            ROS_DISTRO: rolling
+>>>>>>> d48bcbd (Update pre-commit configuration (#28))
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
