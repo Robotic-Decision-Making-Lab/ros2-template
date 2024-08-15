@@ -4,11 +4,7 @@
       "name": "Linux",
       "includePath": [
         "${workspaceFolder}/**",
-<<<<<<< HEAD
         "/opt/ros/humble/include/**",
-=======
-        "/opt/ros/rolling/include/**",
->>>>>>> d48bcbd (Update pre-commit configuration (#28))
         "/usr/include/gz/**"
       ],
       "defines": [],
