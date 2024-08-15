@@ -18,7 +18,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         ROS_DISTRO: [iron]
+=======
+        ROS_DISTRO: [rolling]
+>>>>>>> d48bcbd (Update pre-commit configuration (#28))
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -59,7 +63,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         ROS_DISTRO: [iron]
+=======
+        ROS_DISTRO: [rolling]
+>>>>>>> d48bcbd (Update pre-commit configuration (#28))
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -107,7 +115,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         ROS_DISTRO: [iron]
+=======
+        ROS_DISTRO: [rolling]
+>>>>>>> d48bcbd (Update pre-commit configuration (#28))
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -148,7 +160,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         ROS_DISTRO: [iron]
+=======
+        ROS_DISTRO: [rolling]
+>>>>>>> d48bcbd (Update pre-commit configuration (#28))
     runs-on: ubuntu-latest
     permissions:
       packages: write
