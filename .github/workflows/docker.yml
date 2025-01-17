@@ -69,7 +69,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up QEMU
+<<<<<<< HEAD
         uses: docker/setup-qemu-action@v3.0.0
+=======
+        uses: docker/setup-qemu-action@v3.3.0
+>>>>>>> 93419d0 (Bump docker/setup-qemu-action from 3.2.0 to 3.3.0 (#46))
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
